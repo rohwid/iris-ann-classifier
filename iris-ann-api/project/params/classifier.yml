@@ -1,0 +1,2 @@
+DUMPED_DATA: output/all_data.pkl
+MODEL: model/model.h5

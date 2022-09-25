@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+
+    iris-ann:
+        image: iris-ann:0.0.1
+        build: ./docker
+        container_name: iris-ann
+        restart: always
+        ports:
+            - 5000:8080
+        volumes:
+            - ./project:/opt/apps/project
