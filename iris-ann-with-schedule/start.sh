@@ -64,7 +64,7 @@ airflow() {
     cd airflow && docker-compose up --build --detach
 }
 
-deploy() {
+model() {
     docker_requirements_dir="./docker"
 
     if [[ ! -f ${requirements} ]]; then
@@ -96,8 +96,8 @@ case ${choose} in
     train)
         train
         ;;
-    deploy)
-        deploy
+    model)
+        model
         ;;
     airflow)
         airflow

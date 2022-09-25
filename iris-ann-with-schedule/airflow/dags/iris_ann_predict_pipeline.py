@@ -53,7 +53,7 @@ CONN_DB = conn_config['conn_db']
 
 default_args = {
     'owner': 'Rohman',
-    'start_date': datetime(2022, 3, 16, 0),
+    'start_date': datetime(2022, 9, 26, 0),
     'depends_on_past': False,
     'retries': 3,
     'retry_delay': timedelta(minutes=1)
@@ -131,7 +131,7 @@ def predict_and_insert_output_data():
 
 
 with DAG(dag_id = PIPELINE_NAME, 
-         schedule_interval = None, 
+         schedule_interval = "0 03 * * *",
          default_args = default_args, 
          catchup = False) as dag:
 

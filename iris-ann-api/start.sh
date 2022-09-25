@@ -44,27 +44,7 @@ train() {
     cd project && python train.py
 }
 
-airflow() {
-    if [[ ! -d ${data_dir} ]]; then
-        echo "[ERROR] The data directory not Found. Please execute \"make build\" first!!"
-        exit
-    fi
-
-    if [[ ! -d ${logs_dir} ]]; then
-        echo "[ERROR] The logs directory not Found. Please execute \"make build\" first!!"
-        exit
-    fi
-
-    if [[ ! -d ${plugins_dir} ]]; then
-        echo "[ERROR] The plugins directory not Found. Please execute \"make build\" first!!"
-        exit
-    fi
-
-    echo "[DEBUG] Start the model serving test.."
-    cd airflow && docker-compose up --build --detach
-}
-
-deploy() {
+model() {
     docker_requirements_dir="./docker"
 
     if [[ ! -f ${requirements} ]]; then
@@ -96,11 +76,8 @@ case ${choose} in
     train)
         train
         ;;
-    deploy)
-        deploy
-        ;;
-    airflow)
-        airflow
+    model)
+        model
         ;;
     *) 
         echo "[ERROR] Your input not recognized. Please choose demo, train, or serve!"

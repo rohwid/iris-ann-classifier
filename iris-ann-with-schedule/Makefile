@@ -1,8 +1,5 @@
 CMD = ./start.sh
 
-NAME = iris-ann
-VER = 0.0.1
-
 # PROJECT
 PROJECT_DIR = ./project
 MODEL_DIR = $(PROJECT_DIR)/model
@@ -16,6 +13,9 @@ PLUGINS_DIR = $(AIRFLOW_DIR)/plugins
 build:
 	mkdir -p $(MODEL_DIR)
 	mkdir -p $(ARTEFACT_DIR)
+	mkdir -p $(DATA_DIR)
+	mkdir -p $(LOGS_DIR)
+	mkdir -p $(PLUGINS_DIR)
 
 	chmod +x permission.sh
 	./permission.sh
@@ -28,15 +28,15 @@ train:
 	$(CMD) train
 
 # DEPLOY IRIS ANN
-deploy:
-	$(CMD) deploy
+deploy_model:
+	$(CMD) model
 
 # AIRFLOW
-airflow:
+deploy_airflow:
 	$(CMD) airflow
 
 # CLEAN IRIS ANN
-clean_deploy:
+clean_model:
 	sudo docker-compose down
 
 # CLEAN AIRFLOW

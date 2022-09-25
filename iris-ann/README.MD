@@ -6,16 +6,16 @@ Agar hasil *training* atau mudah di *deploy* maka yang harus dilakukan adalah me
 
 Berikut adalah kebutuhan yang diperlukan untuk menjalan program ini:
 
++ Sistem Operasi (Di rekomendasikan `Ubuntu` atau `Windows + WSL Ubuntu`)
 + Python versi 3.8 (Di rekomendasikan untuk menggunakan `virtual environtment`)
 + Pip
-+ make
-+ Sistem Operasi (Di rekomendasikan `Ubuntu` atau `Windows + WSL Ubuntu`)
++ Make
 
-## **Cara Penggunaaan**
+## **Cara Penggunaan**
 
 Berikut cara penggunaan program ini:
 
-+ Jika `Python versi 3.8` sudah terinstall dan virtual environment sudah dibuat maka silahkan lanjutkan ke tahap selanjutnya, jika belum maka lakukan proses tersebut.
++ Jika `Python versi 3.8` sudah terinstall, `virtual environment` sudah dibuat dan diaktifkan maka silahkan lanjutkan ke tahap selanjutnya. Jika belum maka lakukan proses tersebut.
 
 + Lakukan installasi library yang akan digunakan yang tersimpan dalam file `../requirements.txt` dengan perintah berikut:
 
@@ -29,14 +29,22 @@ Berikut cara penggunaan program ini:
     sudo apt install make
     ```
 
-+ Lakukan eksekusi perintah untuk membuat direktori `project/model`, `project/output` dan merubah *permission* dari direktori `project`.
++ Lakukan eksekusi perintah untuk membuat direktori `project/model` dan `project/output`. Kemudian juga akan merubah *permission* dari direktori `project`.
 
     ```
-    sudo make build
+    make build
     ```
 
 + Lakukan eksekusi perintah untuk menjalankan *training*.
 
     ```
-    sudo make train
+    make train
     ```
+
+## **Reset Project**
+
+Perintah berikut digunakan untuk menghapus seluruh direktori yang digunakan saat proses *training*, yang mana pembuatannya diinisiasi dengan pemanggilan perintah `make build`.
+
+```
+make clean
+```

@@ -1,8 +1,5 @@
 CMD = ./start.sh
 
-NAME = iris-ann
-VER = 0.0.1
-
 # PROJECT
 PROJECT_DIR = ./project
 MODEL_DIR = $(PROJECT_DIR)/model
@@ -24,20 +21,12 @@ train:
 	$(CMD) train
 
 # DEPLOY IRIS ANN
-deploy:
-	$(CMD) deploy
-
-# AIRFLOW
-airflow:
-	$(CMD) deploy
+deploy_model:
+	$(CMD) model
 
 # CLEAN IRIS ANN
-clean_deploy:
+clean_model:
 	sudo docker-compose down
-
-# CLEAN AIRFLOW
-clean_airflow:
-	cd airflow && sudo docker-compose down
 
 # CLEAN BUILD
 clean:

@@ -1,7 +1,7 @@
 airflow/data/
 airflow/logs/
 airflow/plugins/
+airflow/variables/
+airflow/connections/
 project/model/
 project/output/
-variable.json
-conn_db_pipeline.txt
