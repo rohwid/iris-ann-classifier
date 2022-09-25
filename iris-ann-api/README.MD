@@ -1,6 +1,6 @@
 # **Deploy Model Menjadi API Endpoint**
 
-Agar hasil *training* atau mudah di *deploy* maka yang harus dilakukan adalah membuat *dump* model hasi dari proses *training* tersebut. Dalam kasus ini karena menggunakan library `keras` maka model hasil *dump* keluaran dari program yang siap untuk di *deploy* berformat `*.h5`, yang nantinya akan disimpan dalam direktori `project/model`. Selain itu keluaran lain berupa `pickle` hasil dari `joblib` yang berisi data masukan untuk proses normaliasasi saat memprediksi data baru akan disimpan dalam direktori `project/output`.
+Penyajian atau *service* ML berbasis API yang dapat menerima permintaan atau *request* prediksi melalui protokol HTTP.
 
 ## **Requirements**
 
@@ -90,6 +90,18 @@ Langkah untuk melakukan training model yang akan di *deploy*.
     ```
 
 + Kemudian ulangi cara pengujian dengan menggunakan Postman diatas.
+
++ Untuk format keluaran dari program ini sendiri adalah sebagai berikut.
+
+    ```
+    {
+        "response": [
+            0,
+            2,
+            1
+        ]
+    }
+    ```
 
 ## **Reset Project**
 

@@ -1,6 +1,6 @@
 # **Penggunaan Scheduler Untuk Melakukan Prediksi**
 
-Agar hasil *training* atau mudah di *deploy* maka yang harus dilakukan adalah membuat *dump* model hasi dari proses *training* tersebut. Dalam kasus ini karena menggunakan library `keras` maka model hasil *dump* keluaran dari program yang siap untuk di *deploy* berformat `*.h5`, yang nantinya akan disimpan dalam direktori `project/model`. Selain itu keluaran lain berupa `pickle` hasil dari `joblib` yang berisi data masukan untuk proses normaliasasi saat memprediksi data baru akan disimpan dalam direktori `project/output`.
+Penggunaan *scheduler* untuk melakukan prediksi secara otomatis pada data dalam satu tabel yang kemudian hasinya disimpan dalam tabel lain.
 
 ## **Requirements**
 
