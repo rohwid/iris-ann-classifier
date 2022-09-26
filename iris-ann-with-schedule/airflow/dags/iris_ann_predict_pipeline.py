@@ -139,16 +139,38 @@ with DAG(dag_id = PIPELINE_NAME,
         task_id ='create_input_table_if_not_exist',
         postgres_conn_id = CONN_DB,
         sql = f"""
-            CREATE TABLE IF NOT EXISTS {INPUT_TABLE_NAME} ({INPUT_COLUMN[0]} SERIAL PRIMARY KEY, {INPUT_COLUMN[1]} FLOAT NOT NULL, {INPUT_COLUMN[2]} FLOAT NOT NULL, {INPUT_COLUMN[3]} FLOAT NOT NULL, {INPUT_COLUMN[4]} FLOAT NOT NULL);
-        """
+            CREATE TABLE IF NOT EXISTS %s (
+                %s SERIAL PRIMARY KEY, 
+                %s FLOAT NOT NULL, 
+                %s FLOAT NOT NULL, 
+                %s FLOAT NOT NULL, 
+                %s FLOAT NOT NULL
+            );
+        """ % (
+            INPUT_TABLE_NAME,
+            INPUT_COLUMN[0],
+            INPUT_COLUMN[1],
+            INPUT_COLUMN[2],
+            INPUT_COLUMN[3],
+            INPUT_COLUMN[4]
+        )
     )
 
     create_output_table_if_not_exist = PostgresOperator(
         task_id ='create_output_table_if_not_exist',
         postgres_conn_id = CONN_DB,
         sql = f"""
-            CREATE TABLE IF NOT EXISTS {OUTPUT_TABLE_NAME} ({OUTPUT_COLUMN[0]} TIMESTAMPTZ NOT NULL, {OUTPUT_COLUMN[1]} INT NOT NULL, {OUTPUT_COLUMN[2]} INT NOT NULL);
-        """
+            CREATE TABLE IF NOT EXISTS %s (
+                %s TIMESTAMPTZ NOT NULL, 
+                %s INT NOT NULL, 
+                %s INT NOT NULL
+            );
+        """ % (
+            OUTPUT_TABLE_NAME,
+            OUTPUT_COLUMN[0],
+            OUTPUT_COLUMN[1],
+            OUTPUT_COLUMN[2]
+        )
     )
 
     is_input_table_empty = BranchPythonOperator(
