@@ -17,7 +17,7 @@ Berikut cara penggunaan program ini:
 
 + Jika `Python versi 3.8` sudah terinstall, `virtual environment` sudah dibuat dan diaktifkan maka silahkan lanjutkan ke tahap selanjutnya. Jika belum maka lakukan proses tersebut.
 
-+ Lakukan installasi library yang akan digunakan yang tersimpan dalam file `../requirements.txt` dengan perintah berikut:
++ Lakukan installasi library yang akan digunakan yang tersimpan dalam file `project/requirements.txt` dengan perintah berikut:
 
     ```
     pip install -r requirements.txt

@@ -10,21 +10,21 @@ Berikut adalah kebutuhan yang diperlukan untuk menjalan program ini:
 + Python versi 3.8 (Di rekomendasikan untuk menggunakan `virtual environtment`)
 + Pip
 + Make
-+ Docker dan Docker Compose
++ Docker Engine dan Docker Compose
 + Apache Airflow (Sudah tersedia dalam bentuk `docker-compose.yml` pada direktori `airflow`)
-+ PostgreSQL (Sudah tersedia dalam bentuk `docker-compose.yml` yang terbundle dengan Apache Airflow pada direktori `airflow`)
++ PostgreSQL (Sudah tersedia dalam bentuk `docker-compose.yml` yang terbundel dengan Apache Airflow pada direktori `airflow`)
 
 ## **Cara Penggunaan**
 
-Berikut cara penggunaan program ini:
+Langkah penggunaan dibagi memnjadi beberapa bagian penting, berikut adalah setiap bagian dan langkhanya.
 
-### **Model *Preparation***
+### **Model Preparation**
 
-Langkah untuk melakukan training model yang akan di *deploy*.
+Langkah untuk melakukan *training* model yang akan di *deploy*.
 
 + Jika `Python versi 3.8` sudah terinstall, `virtual environment` sudah dibuat dan diaktifkan maka silahkan lanjutkan ke tahap selanjutnya. Jika belum maka lakukan proses tersebut.
 
-+ Lakukan installasi library yang akan digunakan yang tersimpan dalam file `../requirements.txt` dengan perintah berikut:
++ Lakukan installasi *library* yang akan digunakan yang tersimpan dalam file `project/requirements.txt` dengan perintah berikut:
 
     ```
     pip install -r requirements.txt
@@ -54,7 +54,7 @@ Langkah untuk melakukan training model yang akan di *deploy*.
     make deploy_model
     ```
 
-### **Apache Airflow *Preparation***
+### **Apache Airflow Preparation**
 
 Langkah untuk installasi Airflow yang akan digunakan sebagai *scheduler* dan *pipeline*.
 
@@ -69,13 +69,13 @@ Langkah untuk installasi Airflow yang akan digunakan sebagai *scheduler* dan *pi
     <img src="img/login_airflow.png" width="1000"/>
 
 + Lanjutkan dengan memasukan user *airflow* dan password *airflow* juga.
-+ Lalu akan masuk ke tampilan panel Airflow, dengan *error* yang memunjukan kalau butuh masukan variable seperti pada gambar berikut.
++ Lalu akan masuk ke tampilan panel Airflow, dengan *error* yang memunjukan kalau butuh masukan variabel seperti pada gambar berikut.
 
     <img src="img/dag_error_airflow.png" width="1000"/>
 
-+ Unggah variable Airflow dengan membuka menu **Admin > Variable** lalu pilih file yang berisi variable dalam format `.json`. Kemudian lanjutkan dengan **Import Variable**. 
++ Unggah variabel Airflow dengan membuka menu **Admin > Variable** lalu pilih file yang berisi variabel dalam format `.json`. Kemudian lanjutkan dengan **Import Variable**. 
 
-  + Berikut adalah file variable yang akan digunakan:
+  + Berikut adalah file variabel yang akan digunakan:
 
       ```
       {
@@ -104,7 +104,7 @@ Langkah untuk installasi Airflow yang akan digunakan sebagai *scheduler* dan *pi
       }
       ```
 
-      *) *Copy* dan simpan variable script diatas dalam format `.json` untuk diupload *upload*.
+      *) *Copy* dan simpan variabel script diatas dalam format `.json` untuk diupload *upload*.
 + Kemudian lanjutkan dengan membahkan koneksi ke database PostgreSQL yang akan dipakai pada menu **Admin > Connection** dengan urutan sebagai berikut:
   
   + **Conn Id**: `conn_db_pipeline`
@@ -122,15 +122,15 @@ Langkah untuk installasi Airflow yang akan digunakan sebagai *scheduler* dan *pi
 
     <img src="img/pipeline_airflow.png" width="1000"/>
 
-    Dan bila dibuka makan akan muncul struktur *pipeline* tersebut.
+    Dan bila dibuka maka akan muncul struktur *pipeline* tersebut dalam mode *tree*.
 
     <img src="img/pipeline_airflow_2.png" width="1000"/>
 
-### **PosgreSQL Database *Preparation***
+### **PosgreSQL Database Preparation**
 
 Langkah untuk installasi Postgres yang akan digunakan sebagai database.
 
-+ Masuk kedalam Database dengan menggunakan command line atau tools DB Client seperti [DBeaver](https://dbeaver.io/).
++ Masuk kedalam Database dengan menggunakan *command line* atau *tools* Database Client seperti [DBeaver](https://dbeaver.io/).
 
 + Masuk dengan credential dan alamat sebagai berikut:
   + **Address**: `localhost`
@@ -140,7 +140,7 @@ Langkah untuk installasi Postgres yang akan digunakan sebagai database.
 
 + Lanjutkan dengan pembuatan database dengan nama `db_iris`.
 
-### **Proses Prediksi dari Table Input ke Tabel Output**
+### **Proses Prediksi dari Tabel Input ke Tabel Output**
 
 Langkah pengujian proses prediksi dengan input data pada Tabel Input dengan keluaran ke Tabel Output.
 
@@ -164,13 +164,13 @@ Langkah pengujian proses prediksi dengan input data pada Tabel Input dengan kelu
     6.3,2.9,5.6,1.8
     6.5,3,5.8,2.2
     ```
-    *) Bisa juga dengan *Copy* dan simpan script diaatas dengan nama `new-iris-data.csv` kemudian letakan dalam direktori `airflow/data`.
+    *) Bisa juga dengan *Copy* dan simpan script diatas dengan nama `new-iris-data.csv` kemudian letakan dalam direktori `airflow/data`.
 
 + Tabel Input dan Tabel Output secara otomatis terbentuk dan terisi oleh masing-masing data *input* dengan nama `tb_input` dan data *output* dengan nama `tb_output` bila dilihat ke dalam Database langsung. Baik menggunakan command line atau tools DB Client seperti [DBeaver](https://dbeaver.io/).
 
 + Selanjutnya jika direktori `airflow/data` akan dikosongkan secara otomatis setelah proses prediksi selesai.
 
-+ Meskipun direktori `airflow/data` kosong tanpa file `new-iris-data.csv` program tersebut akan terus berjalan setiap **10.00 AM**.
++ Meskipun direktori `airflow/data` kosong tanpa file `new-iris-data.csv` program tersebut akan terus berjalan setiap **10.00 AM WIB** tetapi dalam file `airflow/dags/iris_ann_predict_pipeline.py` menggunakan cron statement `"0 3 * * *"` yang menyatakan pipeline akan berjalan setiap jam 3 pagi, hal tersebut dikarenakan dalam Airflow digunakan konfigurasi waktu **UTC+0**.
 
 + Jika terdapat file atau ditambahkan file dengan nama `new-iris-data.csv` lagi. Maka file tersebut akan langsung ditambahkan ke dalam Tabel Input atau `tb_input` dengan `id` yang berlanjut berdasarkan data sebelumnya.
 

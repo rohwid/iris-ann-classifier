@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "38398c4a-d40e-4aea-9165-b2d142ea865d",
+		"name": "iris-ann",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4420170"
+	},
+	"item": [
+		{
+			"name": "/predict",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"sepal_length\": 6.0,\r\n        \"sepal_width\": 3.0,\r\n        \"petal_length\": 4.0,\r\n        \"petal_width\": 1.5\r\n    },\r\n    {\r\n        \"sepal_length\": 6.1,\r\n        \"sepal_width\": 3.2,\r\n        \"petal_length\": 4.3,\r\n        \"petal_width\": 1.1\r\n    },\r\n    {\r\n        \"sepal_length\": 5.7,\r\n        \"sepal_width\": 2.9,\r\n        \"petal_length\": 4.1,\r\n        \"petal_width\": 1.6\r\n    }\r\n]"
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5000/predict",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"predict"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

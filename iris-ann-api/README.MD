@@ -10,20 +10,20 @@ Berikut adalah kebutuhan yang diperlukan untuk menjalan program ini:
 + Python versi 3.8 (Di rekomendasikan untuk menggunakan `virtual environtment`)
 + Pip
 + Make
-+ Docker dan Docker Compose
++ Docker Engine dan Docker Compose
 + Postman
 
 ## **Cara Penggunaan**
 
-Berikut cara penggunaan program ini:
+Langkah penggunaan dibagi memnjadi beberapa bagian penting, berikut adalah setiap bagian dan langkhanya.
 
-### **Model *Preparation***
+### **Model Preparation**
 
 Langkah untuk melakukan training model yang akan di *deploy*.
 
 + Jika `Python versi 3.8` sudah terinstall, `virtual environment` sudah dibuat dan diaktifkan maka silahkan lanjutkan ke tahap selanjutnya. Jika belum maka lakukan proses tersebut.
 
-+ Lakukan installasi library yang akan digunakan yang tersimpan dalam file `../requirements.txt` dengan perintah berikut:
++ Lakukan installasi library yang akan digunakan yang tersimpan dalam file `project/requirements.txt` dengan perintah berikut:
 
     ```
     pip install -r requirements.txt
@@ -46,6 +46,9 @@ Langkah untuk melakukan training model yang akan di *deploy*.
     ```
     make train
     ```
+### **Deploy Model**
+
+Berikut adalah beberapa langkah dan opsi dalam melakukan model *deployment*.
 
 + Untuk menguji proses prediksi secara langsung, lanjutkan dengan eksekusi perintah berikut.
 
@@ -53,10 +56,10 @@ Langkah untuk melakukan training model yang akan di *deploy*.
     make serve
     ```
 
-+ Gunakan Postman untuk melakukan `requests` atau prediksi dengan data masukan yang dimasukan memaluli protokol HTTP dengan ketentuan sebagai berikut:
++ Gunakan Postman untuk melakukan `request` atau prediksi dengan data masukan yang dimasukan memaluli protokol HTTP dengan ketentuan sebagai berikut:
   + **Method**: `POST`
   + **Address**: `http://0.0.0.0:5000/predict`
-  + Tambahkan pada header Postman:
+  + Tambahkan **header** pada Postman:
     + **Key**: `Content-Type`
     + **Value**: `Application/json`
   + Kemudian pada `Body` pilih `raw`, dan berikut contoh *request body* yg digunakan:
@@ -83,7 +86,9 @@ Langkah untuk melakukan training model yang akan di *deploy*.
     ]
     ```
 
-+ Kemudian deploy model tersebut juga dapat dideploy dengan Docker Compose menggunakan perintah berikut.
++ Atau bisa juga menggukan file `*.json` yang bisa di import ke postman, file tersebut tersimpan pada direktori `postman/iris-ann.postman_collection.json`.
+
++ Kemudian deploy model tersebut juga dapat di *deploy* dengan Docker Compose menggunakan perintah berikut. Jika melakukan deployment menggunakan Docker maka tidak perlu melakukan langkah seperti installasi python, virtual environment dan installasi library.
 
     ```
     make deploy_model
@@ -95,11 +100,7 @@ Langkah untuk melakukan training model yang akan di *deploy*.
 
     ```
     {
-        "response": [
-            0,
-            2,
-            1
-        ]
+        "response": [0, 2, 1]
     }
     ```
 
