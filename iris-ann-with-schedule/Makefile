@@ -37,11 +37,11 @@ deploy_airflow:
 
 # CLEAN IRIS ANN
 clean_model:
-	sudo docker-compose down
+	docker-compose down
 
 # CLEAN AIRFLOW
 clean_airflow:
-	cd airflow && sudo docker-compose down
+	cd airflow && docker-compose down
 
 # CLEAN BUILD
 clean:
