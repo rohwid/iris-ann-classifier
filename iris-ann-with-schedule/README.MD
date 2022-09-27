@@ -122,9 +122,13 @@ Langkah untuk installasi Airflow yang akan digunakan sebagai *scheduler* dan *pi
 
     <img src="img/pipeline_airflow.png" width="1000"/>
 
-    Dan bila dibuka maka akan muncul struktur *pipeline* tersebut dalam mode *tree*.
+    Dan bila dibuka maka akan muncul struktur dari *pipeline* tersebut dalam mode *tree* seperti pada gambar berikut.
 
-    <img src="img/pipeline_airflow_2.png" width="1000"/>
+    <img src="img/pipeline_airflow_tree.png" width="1000"/>
+
+    Untuk lebih jelasnya dapat diubah ke mode *graph* yang tampak seperti gambar berikut.
+
+    <img src="img/pipeline_airflow_graph.png" width="1000"/>
 
 ### **PosgreSQL Database Preparation**
 

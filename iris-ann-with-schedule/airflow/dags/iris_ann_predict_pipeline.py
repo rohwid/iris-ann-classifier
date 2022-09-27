@@ -77,7 +77,7 @@ def check_input_table():
         if not result:
             return 'insert_input_data_if_exist'
 
-        return 'predict_with_current_data'
+        return 'predict_with_data_from_db'
     except Exception as err:
         print(err)
         cursor.close()
@@ -86,16 +86,21 @@ def check_input_table():
 
 # insert_input_data_if_exist
 def check_and_insert_input_data():
-    try:
-        helper.insert_tb_input(DB_URI, INPUT_TABLE_NAME, INPUT_DATA)
-        os.remove(INPUT_DATA)
+    new_file = Path(INPUT_DATA)
 
-        return 'predict_with_init_data'
-    except Exception as err:
-        return (err)
+    if new_file.is_file():
+        try:
+            helper.insert_tb_input(DB_URI, INPUT_TABLE_NAME, INPUT_DATA)
+            os.remove(INPUT_DATA)
+
+            return 'predict_with_init_data'
+        except Exception as err:
+            return (err)
+    
+    return 'error_empy_init_data'
     
 
-# predict_with_init_data, predict_with_current_data, predict_with_new_data
+# predict_with_init_data, predict_with_data_from_db
 def predict_and_insert_output_data():
     new_file = Path(INPUT_DATA)
 
@@ -179,7 +184,7 @@ with DAG(dag_id = PIPELINE_NAME,
         dag = dag
     )
 
-    insert_input_data_if_exist = PythonOperator(
+    insert_input_data_if_exist = BranchPythonOperator(
         task_id = 'insert_input_data_if_exist',
         python_callable = check_and_insert_input_data,
         dag = dag
@@ -191,8 +196,22 @@ with DAG(dag_id = PIPELINE_NAME,
         dag = dag
     )
 
-    predict_with_current_data = PythonOperator(
-        task_id = 'predict_with_current_data',
+    error_empy_init_data = BashOperator(
+        task_id = 'error_empy_init_data',
+        bash_command = f"""
+            echo "NO DATA! Please create 'new-iris-data.csv' and put it in '/opt/airflow/data' directory."
+            echo "Here is the example data of \"new-iris-data.csv\" file:"
+            echo ""
+            echo "sepal_length,sepal_width,petal_length,petal_width"
+            echo "5.1,3.5,1.4,0.2"
+            echo "5.1,3.5,1.4,0.2"
+            echo ""
+            echo "You can copy that and save as 'new-iris-data.csv' file."
+        """
+    )
+
+    predict_with_data_from_db = PythonOperator(
+        task_id = 'predict_with_data_from_db',
         python_callable = predict_and_insert_output_data,
         dag = dag
     )
@@ -200,10 +219,14 @@ with DAG(dag_id = PIPELINE_NAME,
 
     # init data
     task_1 = (create_input_table_if_not_exist >> create_output_table_if_not_exist >> 
-              is_input_table_empty >> [insert_input_data_if_exist, predict_with_current_data])
+              is_input_table_empty >> [insert_input_data_if_exist, predict_with_data_from_db])
     task_2 = (create_input_table_if_not_exist >> create_output_table_if_not_exist >> 
+              is_input_table_empty >> insert_input_data_if_exist>> [predict_with_init_data, error_empy_init_data])
+    task_3 = (create_input_table_if_not_exist >> create_output_table_if_not_exist >> 
               is_input_table_empty >> insert_input_data_if_exist>> predict_with_init_data)
+    task_4 = (create_input_table_if_not_exist >> create_output_table_if_not_exist >> 
+              is_input_table_empty >> insert_input_data_if_exist>> error_empy_init_data)
 
     # db is not empty
-    task_3 = (create_input_table_if_not_exist >> create_output_table_if_not_exist >> 
-              is_input_table_empty >> predict_with_current_data)
+    task_5 = (create_input_table_if_not_exist >> create_output_table_if_not_exist >> 
+              is_input_table_empty >> predict_with_data_from_db)
