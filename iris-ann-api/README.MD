@@ -26,7 +26,7 @@ Langkah untuk melakukan training model yang akan di *deploy*.
 + Lakukan installasi library yang akan digunakan yang tersimpan dalam file `project/requirements.txt` dengan perintah berikut:
 
     ```
-    pip install -r requirements.txt
+    pip install -r project/requirements.txt
     ```
 
 + Lakukan installasi `make` untuk mengeksekusi `Makefile`.
