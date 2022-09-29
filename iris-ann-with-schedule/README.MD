@@ -84,7 +84,7 @@ Langkah untuk installasi Airflow yang akan digunakan sebagai *scheduler* dan *pi
               "project": "Iris ANN Predict",
               "input_data": "/opt/airflow/data/new-iris-data.csv",
               "db_uri": "postgres://airflow:airflow@host.docker.internal:5432/db_iris",
-              "conn_db": "conn_db_pipeline",
+              "conn_db": "conn_db_iris",
               "input_table": "tb_input",
               "input_column": [
                   "id", 
@@ -104,10 +104,10 @@ Langkah untuk installasi Airflow yang akan digunakan sebagai *scheduler* dan *pi
       }
       ```
 
-      *) *Copy* dan simpan variabel script diatas dalam format `.json` untuk diupload *upload*.
+      *) *Copy* dan simpan variabel script diatas dalam format `.json` untuk di *upload*.
 + Kemudian lanjutkan dengan membahkan koneksi ke database PostgreSQL yang akan dipakai pada menu **Admin > Connection** dengan urutan sebagai berikut:
   
-  + **Conn Id**: `conn_db_pipeline`
+  + **Conn Id**: `conn_db_iris`
   + **Conn Type**: `Postgres`
   + **Description**: Kosongkan, isi jika ingin
   + **Host**: `host.docker.internal`

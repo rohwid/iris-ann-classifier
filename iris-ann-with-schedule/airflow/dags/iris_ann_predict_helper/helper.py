@@ -61,9 +61,8 @@ def query_all_tb_input(uri, table):
         Column('petal_width', Float),
     )
 
-    conn = db.connect()
-
     query_data = tb_target.select()
+
     conn = db.connect()
     result = conn.execute(query_data)
 
@@ -77,6 +76,8 @@ def query_all_tb_input(uri, table):
             'petal_length': row[3],
             'petal_width': row[4]
         })
+        
+    conn.close()
 
     return data
 
